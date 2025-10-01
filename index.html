@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quran Tracker</title>
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#10B981">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Quran Tracker">
+    <meta name="description" content="Pantau progress tilawah Al-Quran dan hafalan 40 hadits Qur'ani">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-192x192.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-72x72.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-72x72.png">
+
+    <!-- PWA Registration Script -->
+    <script src="/pwa-register.js" defer></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* [REFINED] Modern UI/UX Styles */
+        :root {
+            --bg-primary: #111827;      /* Darker background */
+            --bg-secondary: #1F2937;   /* Card background */
+            --border-color: #374151;   /* Subtle borders */
+            --text-primary: #F9FAFB;   /* Main text */
+            --text-secondary: #9CA3AF; /* Muted text */
+            --accent-primary: #10B981; /* Emerald Green */
+            --accent-hover: #059669;   /* Darker Green */
+            --accent-light: rgba(16, 185, 129, 0.1);
+            --danger: #EF4444;
+            --danger-hover: #DC2626;
+            
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 12px;
+            --spacing-lg: 16px;
+            --spacing-xl: 24px;
+            --spacing-2xl: 32px;
+            --border-radius: 8px;
+        }
+
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: var(--spacing-lg);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+            padding: var(--spacing-2xl) var(--spacing-lg);
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-primary));
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, var(--accent-light), transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            background: linear-gradient(135deg, var(--text-primary), var(--accent-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-lg);
+        }
+        .hero-description {
+        font-size: 0.875rem; /* atau 14px */
+        font-style: italic;
+        color: rgba(255, 255, 255, 0.7); /* warna lebih transparan */
+        margin-top: 0.5rem;
+        margin-bottom: 2rem;
+    }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-xl);
+            flex-wrap: wrap;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            display: block;
+        }
+
+        .hero-stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: var(--spacing-xs);
+        }
+
+        /* Header Navigation */
+        header {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        nav {
+            display: flex;
+            background-color: var(--bg-secondary);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-xs);
+            border: 1px solid var(--border-color);
+        }
+
+        nav button {
+            flex: 1;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: var(--spacing-sm) var(--spacing-md);
+            cursor: pointer;
+            border-radius: 6px;
+            transition: color 0.2s ease, background-color 0.2s ease;
+        }
+        
+        nav button:hover {
+            color: var(--text-primary);
+        }
+
+        nav button.active {
+            background-color: var(--accent-primary);
+            color: var(--bg-primary);
+            font-weight: 700;
+        }
+
+        /* Main Content Cards */
+        .card {
+            background-color: var(--bg-secondary);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            border: 1px solid var(--border-color);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .section-header {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-lg);
+            color: var(--text-primary);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Button styles */
+        .btn {
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-sm {
+            padding: 2px var(--spacing-xs);
+            font-size: 0.7rem;
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: var(--danger-hover);
+        }
+
+        /* Tilawah Progress */
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-sm);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .progress-bar-wrapper {
+            width: 100%;
+            background-color: var(--bg-primary);
+            border-radius: 999px;
+            height: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: var(--accent-primary);
+            text-align: center;
+            color: var(--bg-primary);
+        }
+        
+        /* Juz Grid */
+        .juz-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-lg);
+        }
+
+        .juz-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            height: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .juz-item:hover:not(.read) {
+            background-color: var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .juz-item.read {
+            background-color: var(--accent-primary);
+            color: var(--bg-primary);
+            border-color: var(--accent-hover);
+        }
+
+        .juz-item.read .remove-juz {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            width: 16px;
+            height: 16px;
+            background-color: var(--danger);
+            color: white;
+            border-radius: 50%;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .juz-item.read:hover .remove-juz {
+            opacity: 1;
+        }
+        
+        /* Filter Section */
+        .filter-section {
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .filter-label {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .date-input, .select-input {
+            width: 100%;
+            padding: var(--spacing-sm) var(--spacing-md);
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-family: inherit;
+        }
+
+        .date-input:focus, .select-input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+        }
+
+        .date-input::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+        }
+
+        .select-input {
+            -webkit-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%239CA3AF' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3E%3C/svg%3E");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-md);
+        }
+
+        .stat-card {
+            background-color: var(--bg-primary);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-title {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-xs);
+            font-weight: 500;
+        }
+
+        .stat-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+        
+        .stat-value .unit {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-left: 2px;
+        }
+
+        /* Chart */
+        .chart-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 120px;
+            padding: var(--spacing-lg) var(--spacing-md) 0;
+            border-radius: var(--border-radius);
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .chart-bar-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 12%;
+            position: relative;
+        }
+        
+        .chart-bar-value {
+            position: absolute;
+            top: -20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .chart-bar {
+            width: 100%;
+            background-color: var(--accent-primary);
+            border-radius: 4px 4px 0 0;
+            min-height: 3px;
+            transition: height 0.3s ease-out;
+        }
+
+        .chart-label {
+            margin-top: var(--spacing-sm);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        /* History List */
+        .list { list-style: none; }
+        .list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-md) 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .list-item:last-child { border-bottom: none; }
+        
+        .list-item-title { font-weight: 600; }
+        .list-item-date { font-size: 0.85rem; color: var(--text-secondary); }
+
+        /* Hadits Section */
+        .hadits-filters {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .hadits-progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .hadits-item {
+            padding: var(--spacing-lg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            margin-bottom: var(--spacing-md);
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+
+        .hadits-header {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-md);
+            cursor: pointer;
+        }
+
+        .hadits-checkbox {
+            -webkit-appearance: none;
+            appearance: none;
+            background-color: transparent;
+            margin-top: 5px;
+            font: inherit;
+            color: var(--border-color);
+            width: 1.15em;
+            height: 1.15em;
+            border: 0.15em solid currentColor;
+            border-radius: 0.25em;
+            transform: translateY(-0.075em);
+            display: grid;
+            place-content: center;
+            flex-shrink: 0;
+        }
+
+        .hadits-checkbox::before {
+            content: "";
+            width: 0.65em;
+            height: 0.65em;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out;
+            box-shadow: inset 1em 1em var(--accent-primary);
+            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+        }
+
+        .hadits-checkbox:checked {
+            border-color: var(--accent-primary);
+        }
+        
+        .hadits-checkbox:checked::before {
+            transform: scale(1);
+        }
+
+        .hadits-content { flex: 1; }
+        .hadits-arabic {
+            font-size: 1.2rem;
+            text-align: right;
+            margin-bottom: var(--spacing-md);
+            line-height: 1.8;
+            direction: rtl;
+        }
+        .hadits-translation {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-sm);
+        }
+        .hadits-source {
+            font-size: 0.8rem;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        .hadits-item.completed {
+            background-color: rgba(16, 185, 129, 0.05);
+            border-color: rgba(16, 185, 129, 0.4);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-lg);
+        }
+
+        .pagination button {
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .pagination button:hover:not(:disabled) {
+            background: var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pagination button.active {
+            background: var(--accent-primary);
+            color: var(--bg-primary);
+            border-color: var(--accent-primary);
+        }
+
+        .pagination-info {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        
+        /* Utility */
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing-xl) 0;
+            color: var(--text-secondary);
+        }
+
+        /* Responsive */
+        @media (min-width: 640px) {
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+        }
+        /* Social Media Section */
+        .social-section {
+            text-align: center;
+            margin-top: var(--spacing-2xl);
+            padding: var(--spacing-xl) var(--spacing-lg);
+            background-color: var(--bg-secondary);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+        }
+
+        .social-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-lg);
+            line-height: 1.6;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-lg);
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-sm) var(--spacing-lg);
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .social-link:hover {
+            background-color: var(--border-color);
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        .social-icon {
+            width: 18px;
+            height: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<div x-data="quranTracker" class="container">
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Quran Tracker</h1>
+            <p class="hero-subtitle">Pantau Progress Tilawah & Hafalan Hadits Qur'ani Anda</p>
+             <p class="hero-description">Data tersimpan di browser, akan hilang jika browser dibersihkan/dihapus</p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="hero-stat-value" x-text="khatamHistory.length"></span>
+                    <span class="hero-stat-label">Total Khataman</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-value" x-text="tilawahProgress.length"></span>
+                    <span class="hero-stat-label">Juz Saat Ini</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-value" x-text="completedHaditsCount"></span>
+                    <span class="hero-stat-label">Hadits Hafal</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <nav>
+            <button @click="activeTab = 'main'" :class="{ 'active': activeTab === 'main' }">Tilawah</button>
+            <button @click="activeTab = 'hadits'" :class="{ 'active': activeTab === 'hadits' }">Hadits</button>
+        </nav>
+    </header>
+
+    <main>
+        <div x-show="activeTab === 'main'" x-cloak>
+            <div class="card">
+                <div class="section-header">
+                    <span>Progress Khataman</span>
+                    <button x-show="tilawahProgress.length > 0" @click="resetProgress()" class="btn btn-danger btn-sm">
+                        Reset Progress
+                    </button>
+                </div>
+                <div class="progress-info">
+                    <span>Juz Selesai</span>
+                    <span><strong x-text="tilawahProgress.length"></strong>/30</span>
+                </div>
+                <div class="progress-bar-wrapper">
+                    <div class="progress-bar" :style="{ width: (tilawahProgress.length / 30 * 100) + '%' }"></div>
+                </div>
+                <div class="juz-grid">
+                    <template x-for="juz in Array.from({ length: 30 }, (_, i) => i + 1)" :key="juz">
+                        <div 
+                            class="juz-item" 
+                            :class="{ 'read': isJuzRead(juz) }"
+                            @click="!isJuzRead(juz) && addJuz(juz)">
+                            <span x-text="juz"></span>
+                            <div x-show="isJuzRead(juz)" class="remove-juz" @click.stop="removeJuz(juz)">×</div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-header">Statistik</div>
+                <div class="filter-section">
+                    <label for="period-filter" class="filter-label">Tampilkan Statistik untuk Bulan</label>
+                    <input 
+                        type="month" 
+                        id="period-filter" 
+                        class="date-input"
+                        x-model="selectedPeriod"
+                        :max="getCurrentMonth()">
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <p class="stat-title">Total Khataman</p>
+                        <p class="stat-value" x-text="khatamHistory.length"></p>
+                    </div>
+                    <div class="stat-card">
+                        <p class="stat-title">Bulan Dipilih</p>
+                        <p class="stat-value" x-text="statsForPeriod.khatamanPadaPeriode"></p>
+                    </div>
+                    <div class="stat-card">
+                        <p class="stat-title">Rata-rata/Hari</p>
+                        <p class="stat-value" x-text="overallStats.rataRataJuzPerHari"></p>
+                    </div>
+                    <div class="stat-card">
+                        <p class="stat-title">Jeda Terakhir</p>
+                        <p class="stat-value">
+                            <span x-text="overallStats.jedaAntarKhataman"></span>
+                            <span class="unit" x-show="overallStats.jedaAntarKhataman !== '-'">hari</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-header">Grafik Khataman (6 Bulan Terakhir)</div>
+                <div class="chart-container">
+                    <template x-for="month in monthlyKhatamChart" :key="month.name">
+                        <div class="chart-bar-wrapper">
+                            <span class="chart-bar-value" x-text="month.count" x-show="month.count > 0"></span>
+                            <div class="chart-bar" :style="{ height: month.height + '%' }"></div>
+                            <span class="chart-label" x-text="month.name"></span>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-header">Riwayat 5 Khataman Terakhir</div>
+                <ul class="list">
+                    <template x-if="khatamHistory.length === 0">
+                        <p class="empty-state">Belum ada riwayat khataman.</p>
+                    </template>
+                    <template x-for="(khatam, index) in [...khatamHistory].reverse().slice(0, 5)" :key="khatam.id">
+                         <li class="list-item">
+                            <span class="list-item-title">Khataman ke-<span x-text="khatamHistory.length - index"></span></span>
+                            <span class="list-item-date" x-text="formatTanggal(khatam.date)"></span>
+                        </li>
+                    </template>
+                </ul>
+            </div>
+        </div>
+
+        <div x-show="activeTab === 'hadits'" x-cloak>
+            <div class="card">
+                <div class="section-header">Hafalan Doa & Hadits Qurani</div>
+                
+                <!-- Filters -->
+                <div class="hadits-filters">
+                    <div>
+                        <label class="filter-label">Kategori</label>
+                        <select x-model="selectedCategory" class="select-input">
+                            <option value="all">Semua Kategori</option>
+                            <template x-for="category in availableCategories" :key="category">
+                                <option :value="category" x-text="category"></option>
+                            </template>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="filter-label">Status</label>
+                        <select x-model="selectedStatus" class="select-input">
+                            <option value="all">Semua Status</option>
+                            <option value="completed">Sudah Hafal</option>
+                            <option value="pending">Belum Hafal</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Progress -->
+                <div class="hadits-progress-info">
+                    <div class="progress-info" style="width: 100%">
+                        <span>Progress</span>
+                        <span><strong x-text="completedHaditsCount"></strong>/<span x-text="haditsData.length"></span></span>
+                    </div>
+                </div>
+                <div class="progress-bar-wrapper">
+                    <div class="progress-bar" :style="{ width: (completedHaditsCount / haditsData.length * 100) + '%' }"></div>
+                </div>
+            </div>
+            
+            <!-- Hadits List -->
+            <template x-for="hadits in paginatedHadits" :key="hadits.id">
+                <div class="hadits-item" :class="{ 'completed': isHaditsCompleted(hadits.id) }" @click="toggleHadits(hadits.id)">
+                    <div class="hadits-header">
+                        <input 
+                            type="checkbox" 
+                            class="hadits-checkbox"
+                            :checked="isHaditsCompleted(hadits.id)"
+                            readonly>
+                        <div class="hadits-content">
+                            <div class="hadits-arabic" x-text="hadits.arabic"></div>
+                            <div class="hadits-translation" x-text="hadits.translation"></div>
+                            <div class="hadits-source" x-text="hadits.source + ' • ' + hadits.category"></div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Pagination -->
+            <div x-show="filteredHadits.length > haditsPerPage" class="pagination">
+                <button @click="currentPage = Math.max(1, currentPage - 1)" :disabled="currentPage === 1">‹ Prev</button>
+                
+                <template x-for="page in visiblePages" :key="page">
+                    <button 
+                        @click="currentPage = page" 
+                        :class="{ 'active': currentPage === page }"
+                        x-text="page">
+                    </button>
+                </template>
+                
+                <button @click="currentPage = Math.min(totalPages, currentPage + 1)" :disabled="currentPage === totalPages">Next ›</button>
+                
+                <div class="pagination-info">
+                    <span x-text="`${paginatedHadits.length} dari ${filteredHadits.length} hadits`"></span>
+                </div>
+            </div>
+
+            <div x-show="filteredHadits.length === 0" class="empty-state">
+                Tidak ada hadits yang sesuai dengan filter.
+            </div>
+        </div>
+    </main>
+    <!-- Social Media Section -->
+    <div class="social-section">
+        <p class="social-description">
+            Ikuti kami di media sosial, dapatkan Buku 40 Wasiat Eksklusif Nabi Muhammad Untuk Pecinta Al-Qur'an bagi yang beruntung!
+        </p>
+        <div class="social-links">
+            <a href="https://instagram.com/ahmad_saifuddin_amin" target="_blank" rel="noopener noreferrer" class="social-link">
+                <svg class="social-icon" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+                Instagram
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+// Optimized IndexedDB utility functions
+const DB_NAME = 'QuranTrackerDB';
+const DB_VERSION = 2;
+
+class QuranTrackerDB {
+    constructor() {
+        this.db = null;
+        this.cache = new Map();
+        this.cacheExpiry = 5 * 60 * 1000; // 5 minutes
+    }
+
+    async init() {
+        return new Promise((resolve, reject) => {
+            const request = indexedDB.open(DB_NAME, DB_VERSION);
+            
+            request.onerror = () => reject(request.error);
+            request.onsuccess = () => {
+                this.db = request.result;
+                resolve(this.db);
+            };
+            
+            request.onupgradeneeded = (event) => {
+                const db = event.target.result;
+                
+                // Create/update object stores
+                ['tilawahProgress', 'khatamHistory', 'completedHadits'].forEach(storeName => {
+                    if (db.objectStoreNames.contains(storeName)) {
+                        db.deleteObjectStore(storeName);
+                    }
+                    
+                    const store = db.createObjectStore(storeName, { keyPath: 'id', autoIncrement: true });
+                    
+                    if (storeName === 'tilawahProgress') {
+                        store.createIndex('juz', 'juz', { unique: false });
+                        store.createIndex('date', 'date', { unique: false });
+                    } else if (storeName === 'khatamHistory') {
+                        store.createIndex('date', 'date', { unique: false });
+                    } else if (storeName === 'completedHadits') {
+                        store.createIndex('haditsId', 'haditsId', { unique: true });
+                    }
+                });
+            };
+        });
+    }
+
+    // Optimized batch operations
+    async saveData(storeName, data) {
+        const cacheKey = `${storeName}_${Date.now()}`;
+        
+        try {
+            const transaction = this.db.transaction([storeName], 'readwrite');
+            const store = transaction.objectStore(storeName);
+            
+            // Clear existing data
+            await this.promisifyRequest(store.clear());
+            
+            // Batch insert
+            const promises = data.map(item => this.promisifyRequest(store.add(item)));
+            await Promise.all(promises);
+            
+            // Update cache
+            this.cache.set(storeName, { data, timestamp: Date.now() });
+            
+            return true;
+        } catch (error) {
+            console.error(`Error saving ${storeName}:`, error);
+            throw error;
+        }
+    }
+
+    async loadData(storeName) {
+        // Check cache first
+        const cached = this.cache.get(storeName);
+        if (cached && (Date.now() - cached.timestamp) < this.cacheExpiry) {
+            return cached.data;
+        }
+
+        try {
+            const transaction = this.db.transaction([storeName], 'readonly');
+            const store = transaction.objectStore(storeName);
+            const data = await this.promisifyRequest(store.getAll());
+            
+            // Update cache
+            this.cache.set(storeName, { data, timestamp: Date.now() });
+            
+            return data;
+        } catch (error) {
+            console.error(`Error loading ${storeName}:`, error);
+            throw error;
+        }
+    }
+
+    // Single item operations for better performance
+    async updateItem(storeName, item) {
+        try {
+            const transaction = this.db.transaction([storeName], 'readwrite');
+            const store = transaction.objectStore(storeName);
+            await this.promisifyRequest(store.put(item));
+            
+            // Invalidate cache
+            this.cache.delete(storeName);
+            
+            return true;
+        } catch (error) {
+            console.error(`Error updating item in ${storeName}:`, error);
+            throw error;
+        }
+    }
+
+    async deleteItem(storeName, id) {
+        try {
+            const transaction = this.db.transaction([storeName], 'readwrite');
+            const store = transaction.objectStore(storeName);
+            await this.promisifyRequest(store.delete(id));
+            
+            // Invalidate cache
+            this.cache.delete(storeName);
+            
+            return true;
+        } catch (error) {
+            console.error(`Error deleting item from ${storeName}:`, error);
+            throw error;
+        }
+    }
+
+    promisifyRequest(request) {
+        return new Promise((resolve, reject) => {
+            request.onsuccess = () => resolve(request.result);
+            request.onerror = () => reject(request.error);
+        });
+    }
+
+    clearCache() {
+        this.cache.clear();
+    }
+}
+
+document.addEventListener('alpine:init', () => {
+    Alpine.data('quranTracker', () => ({
+        // STATE
+        activeTab: 'main',
+        tilawahProgress: [],
+        khatamHistory: [],
+        completedHadits: [],
+        selectedPeriod: '',
+        db: new QuranTrackerDB(),
+        
+        // Hadits state
+        haditsData: [],
+        selectedCategory: 'all',
+        selectedStatus: 'all',
+        currentPage: 1,
+        haditsPerPage: 5,
+
+        // INIT: Load data from IndexedDB and external JSON
+        async init() {
+            // Load hadits from external JSON
+            await this.loadHaditsData();
+            
+            try {
+                await this.db.init();
+                await this.loadData();
+            } catch (error) {
+                console.error('Error initializing database:', error);
+                this.loadFromLocalStorage();
+            }
+
+            // Set default filter to current month
+            const today = new Date();
+            this.selectedPeriod = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
+            
+            // Optimized watchers with debouncing
+            this.$watch('tilawahProgress', () => this.debouncedSave('tilawahProgress'));
+            this.$watch('khatamHistory', () => this.debouncedSave('khatamHistory'));
+            this.$watch('completedHadits', () => this.debouncedSave('completedHadits'));
+        },
+
+        // Load hadits from external JSON
+        async loadHaditsData() {
+            try {
+                const response = await fetch('./hadits-data.json');
+                const data = await response.json();
+                this.haditsData = data.hadits;
+            } catch (error) {
+                console.error('Error loading hadits data:', error);
+                // Fallback data if external JSON fails
+                this.haditsData = [
+                    { id: 1, category: "Doa Harian", arabic: "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ", translation: "Ya Tuhan kami, berilah kami kebaikan di dunia dan kebaikan di akhirat, dan peliharalah kami dari azab neraka.", source: "QS. Al-Baqarah: 201" }
+                ];
+            }
+        },
+
+        // Debounced save function
+        debouncedSave: (() => {
+            const timeouts = {};
+            return function(type) {
+                clearTimeout(timeouts[type]);
+                timeouts[type] = setTimeout(() => this.saveData(), 500);
+            };
+        })(),
+
+        async loadData() {
+            try {
+                const tilawahData = await this.db.loadData('tilawahProgress');
+                const khatamData = await this.db.loadData('khatamHistory');
+                const haditsData = await this.db.loadData('completedHadits');
+
+                this.tilawahProgress = tilawahData || [];
+                this.khatamHistory = khatamData || [];
+                this.completedHadits = haditsData.map(item => item.haditsId) || [];
+            } catch (error) {
+                console.error('Error loading from IndexedDB:', error);
+                this.loadFromLocalStorage();
+            }
+        },
+
+        async saveData() {
+            try {
+                await Promise.all([
+                    this.db.saveData('tilawahProgress', this.tilawahProgress),
+                    this.db.saveData('khatamHistory', this.khatamHistory),
+                    this.db.saveData('completedHadits', this.completedHadits.map(id => ({ haditsId: id })))
+                ]);
+            } catch (error) {
+                console.error('Error saving to IndexedDB:', error);
+                this.saveToLocalStorage();
+            }
+        },
+
+        loadFromLocalStorage() {
+            this.tilawahProgress = JSON.parse(localStorage.getItem('tilawahProgress_v3')) || [];
+            this.khatamHistory = JSON.parse(localStorage.getItem('khatamHistory_v3')) || [];
+            this.completedHadits = JSON.parse(localStorage.getItem('completedHadits_v3')) || [];
+        },
+
+        saveToLocalStorage() {
+            localStorage.setItem('tilawahProgress_v3', JSON.stringify(this.tilawahProgress));
+            localStorage.setItem('khatamHistory_v3', JSON.stringify(this.khatamHistory));
+            localStorage.setItem('completedHadits_v3', JSON.stringify(this.completedHadits));
+        },
+
+        getCurrentMonth() {
+            const today = new Date();
+            return `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
+        },
+
+        // Edit/Delete Progress Functions
+        removeJuz(juz) {
+            this.tilawahProgress = this.tilawahProgress.filter(p => p.juz !== juz);
+        },
+
+        resetProgress() {
+            if (confirm('Yakin ingin reset progress khataman saat ini? Tindakan ini tidak dapat dibatalkan.')) {
+                this.tilawahProgress = [];
+            }
+        },
+
+        // Hadits Filtering and Pagination
+        get availableCategories() {
+            return [...new Set(this.haditsData.map(h => h.category))].sort();
+        },
+
+        get filteredHadits() {
+            let filtered = this.haditsData;
+
+            // Filter by category
+            if (this.selectedCategory !== 'all') {
+                filtered = filtered.filter(h => h.category === this.selectedCategory);
+            }
+
+            // Filter by status
+            if (this.selectedStatus !== 'all') {
+                if (this.selectedStatus === 'completed') {
+                    filtered = filtered.filter(h => this.isHaditsCompleted(h.id));
+                } else if (this.selectedStatus === 'pending') {
+                    filtered = filtered.filter(h => !this.isHaditsCompleted(h.id));
+                }
+            }
+
+            return filtered;
+        },
+
+        get totalPages() {
+            return Math.ceil(this.filteredHadits.length / this.haditsPerPage);
+        },
+
+        get paginatedHadits() {
+            const start = (this.currentPage - 1) * this.haditsPerPage;
+            const end = start + this.haditsPerPage;
+            return this.filteredHadits.slice(start, end);
+        },
+
+        get visiblePages() {
+            const total = this.totalPages;
+            const current = this.currentPage;
+            const delta = 2;
+            
+            let start = Math.max(1, current - delta);
+            let end = Math.min(total, current + delta);
+            
+            // Adjust range if we're near the beginning or end
+            if (end - start < 2 * delta) {
+                start = Math.max(1, end - 2 * delta);
+                end = Math.min(total, start + 2 * delta);
+            }
+            
+            const pages = [];
+            for (let i = start; i <= end; i++) {
+                pages.push(i);
+            }
+            return pages;
+        },
+
+        // Computed property for stats based on the selected period
+        get statsForPeriod() {
+            if (!this.selectedPeriod) return { khatamanPadaPeriode: 0 };
+            
+            const [year, month] = this.selectedPeriod.split('-').map(Number);
+            
+            const khatamanPadaPeriode = this.khatamHistory.filter(k => {
+                const date = new Date(k.date);
+                return date.getFullYear() === year && date.getMonth() === (month - 1);
+            }).length;
+
+            return { khatamanPadaPeriode };
+        },
+        
+        // Computed property for overall stats
+        get overallStats() {
+            let jedaAntarKhataman = '-';
+            if (this.khatamHistory.length >= 2) {
+                const lastKhatam = new Date(this.khatamHistory[this.khatamHistory.length - 1].date);
+                const secondLastKhatam = new Date(this.khatamHistory[this.khatamHistory.length - 2].date);
+                jedaAntarKhataman = Math.ceil(Math.abs(lastKhatam - secondLastKhatam) / (1000 * 60 * 60 * 24));
+            }
+
+            let rataRataJuzPerHari = '0.0';
+            const allProgress = [...this.tilawahProgress, ...this.khatamHistory.flatMap(k => Array(30).fill(null).map((_, i) => ({ date: k.date, juz: i+1 })))];
+            if (allProgress.length > 0) {
+                const firstDay = new Date(allProgress.sort((a,b) => new Date(a.date) - new Date(b.date))[0].date);
+                const today = new Date();
+                const daysElapsed = Math.ceil(Math.abs(today - firstDay) / (1000 * 60 * 60 * 24)) || 1;
+                const totalJuzRead = (this.khatamHistory.length * 30) + this.tilawahProgress.length;
+                rataRataJuzPerHari = (totalJuzRead / daysElapsed).toFixed(1);
+            }
+
+            return { jedaAntarKhataman, rataRataJuzPerHari };
+        },
+        
+        // Computed property for the chart to show the last 6 months
+        get monthlyKhatamChart() {
+            const months = [];
+            const today = new Date();
+            
+            for (let i = 5; i >= 0; i--) {
+                const date = new Date(today.getFullYear(), today.getMonth() - i, 1);
+                months.push({
+                    name: date.toLocaleDateString('id-ID', { month: 'short' }),
+                    month: date.getMonth(),
+                    year: date.getFullYear(),
+                    count: 0
+                });
+            }
+
+            this.khatamHistory.forEach(khatam => {
+                const khatamDate = new Date(khatam.date);
+                const monthData = months.find(m => 
+                    m.month === khatamDate.getMonth() && m.year === khatamDate.getFullYear()
+                );
+                if (monthData) {
+                    monthData.count++;
+                }
+            });
+
+            const maxCount = Math.max(...months.map(m => m.count), 1);
+            return months.map(m => ({ 
+                ...m, 
+                height: (m.count / maxCount) * 100
+            }));
+        },
+
+        get completedHaditsCount() {
+            return this.completedHadits.length;
+        },
+
+        // Watch for filter changes to reset pagination
+        $watch: {
+            selectedCategory() {
+                this.currentPage = 1;
+            },
+            selectedStatus() {
+                this.currentPage = 1;
+            }
+        },
+
+        // METHODS
+        isJuzRead(juz) {
+            return this.tilawahProgress.some(p => p.juz === juz);
+        },
+
+        addJuz(juz) {
+            this.tilawahProgress.push({ 
+                id: Date.now() + Math.random(),
+                juz: juz, 
+                date: this.getTodayDate() 
+            });
+            this.tilawahProgress.sort((a, b) => a.juz - b.juz);
+
+            if (this.tilawahProgress.length === 30) {
+                this.khatamHistory.push({ id: Date.now(), date: this.getTodayDate() });
+                this.tilawahProgress = [];
+                alert('Alhamdulillah! Anda telah menyelesaikan 1 khataman Al-Quran.');
+            }
+        },
+
+        isHaditsCompleted(haditsId) {
+            return this.completedHadits.includes(haditsId);
+        },
+
+        toggleHadits(haditsId) {
+            const index = this.completedHadits.indexOf(haditsId);
+            if (index > -1) {
+                this.completedHadits.splice(index, 1);
+            } else {
+                this.completedHadits.push(haditsId);
+            }
+        },
+
+        // UTILITIES
+        getTodayDate() {
+            return new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+        },
+        
+        formatTanggal(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('id-ID', options);
+        }
+    }));
+});
+</script>
+
+<!-- iOS Install Instructions (Optional) -->
+<script>
+  // Show iOS install instructions if on Safari
+  if ('standalone' in navigator && !navigator.standalone && /iPhone|iPad|iPod/.test(navigator.userAgent)) {
+    window.addEventListener('load', () => {
+      const iOSPrompt = document.createElement('div');
+      iOSPrompt.className = 'pwa-notification info';
+      iOSPrompt.style.bottom = '20px';
+      iOSPrompt.style.top = 'auto';
+      iOSPrompt.innerHTML = `
+        <div class="pwa-notification-content">
+          <div>
+            <strong>Install Aplikasi</strong><br>
+            <small>Tap tombol Share, lalu "Add to Home Screen"</small>
+          </div>
+          <button class="pwa-notification-button" onclick="this.parentElement.parentElement.remove()">OK</button>
+        </div>
+      `;
+      document.body.appendChild(iOSPrompt);
+      
+      setTimeout(() => iOSPrompt.remove(), 15000);
+    });
+  }
+</script>
+</body>
+</html>

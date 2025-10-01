@@ -1,0 +1,284 @@
+{
+  "hadits": [
+    {
+      "id": 1,
+      "category": "Keutamaan Belajar dan Mengajar Al-Qur'an",
+      "arabic": "خَيْرُكُمْ مَنْ تَعَلَّمَ القُرْآنَ وَعَلَّمَهُ",
+      "translation": "Sebaik-baik kalian adalah orang yang belajar dan mengajarkan al-Qur'an",
+      "source": "HR. Al-Bukhari"
+    },
+    {
+      "id": 2,
+      "category": "Keagungan Al-Qur'an",
+      "arabic": "الْقُرْآنُ أَعْظَمُ مِنْ كُلِّ شَيْءٍ دُونَ اللَّهِ، فَمَنْ وَقَرَ الْقُرْآنَ فَقَدَ وَقَرَ اللَّهَ، وَمَنِ اسْتَخَفَّ بِحَقِّ الْقُرْآنِ فَقَدِ اسْتَخَفَّ بِحَقِّ اللَّهِ، وَحَمَلَةُ الْقُرْآنِ الْمَخْصُوصُونَ بِرَحْمَةِ اللَّهِ، الْمُعَلَّمُونَ كَلامَ اللَّهِ، الْمُلْبَسُونَ نُورَ اللَّهِ، مَنْ عَادَاهُمْ فَقَدْ عَادَى اللَّهَ، وَمَنْ وَالاهُمْ فَقَدْ وَالَى اللَّهَ",
+      "translation": "Al-Qur'an itu lebih agung dari segala sesuatu selain Allah. Barang siapa yang menghormati al-Qur'an berarti sungguh dia mengagungkan Allah. Barang siapa meremehkan hak al-Qur'an, sungguh ia telah meremehkan hak Allah. Para penghafal al-Qur'an adalah orang-orang diistimewakan dengan rahmat Allah, diajarkan kalam Allah, dan dikenakan kepadanya Cahaya Allah. Barang siapa yang memusuhi mereka berarti ia memusuhi Allah dan barang siapa yang mencintai mereka berarti ia mencintai Allah.",
+      "source": "HR. Al-Razi"
+    },
+    {
+      "id": 3,
+      "category": "Keutamaan Membaca Al-Qur'an",
+      "arabic": "أَفْضَلُ عِبَادَةِ أُمَّتِي قِرَاءَةُ الْقُرْآنِ",
+      "translation": "Ibadah paling utama yang dilakukan umatku adalah membaca al-Qur'an",
+      "source": "HR. Al-Bayhaqi"
+    },
+    {
+      "id": 4,
+      "category": "Pahala Membaca Al-Qur'an",
+      "arabic": "مَنْ قَرَأَ حَرْفًا مِنْ كِتَابِ اللَّهِ فَلَهُ بِهِ حَسَنَةٌ وَالْحَسَنَةُ بِعَشْرِ أَمْثَالِهَا لَا أَقُولُ الم حَرْفٌ وَلَكِنْ أَلِفٌ حَرْفٌ وَلَامٌ حَرْفٌ وَمِيمٌ حَرْفٌ",
+      "translation": "Barang siapa yang membaca satu huruf al-Qur'an maka ia mendapatkan satu pahala kebaikan. Satu pahala kebaikan itu dilipatgandakan sepuluh kali. Aku tidak berkata kalau الم itu satu huruf, tetapi alif satu huruf, lam satu huruf dan mim juga satu huruf.",
+      "source": "HR. Al-Tirmidzi"
+    },
+    {
+      "id": 5,
+      "category": "Pahala Membaca Al-Qur'an",
+      "arabic": "مَثَلُ الَّذِي يَقْرَأُ القُرْآنَ، وَهُوَ حَافِظٌ لَهُ مَعَ السَّفَرَةِ الكِرَامِ البَرَرَةِ، وَمَثَلُ الَّذِي يَقْرَأُ، وَهُوَ يَتَعَاهَدُهُ، وَهُوَ عَلَيْهِ شَدِيدٌ فَلَهُ أَجْرَانِ",
+      "translation": "Orang yang mahir dengan al-Qur'an bersama dengan malaikat pembawa wahyu sedangkan orang yang membaca al-Qur'an dengan terbata-bata dan ia merasa kesulitan dengannya maka ia mendapatkan pahala dua kali lipat",
+      "source": "HR. Al-Bukhari Muslim"
+    },
+    {
+      "id": 6,
+      "category": "Keutamaan Membaca Al-Qur'an",
+      "arabic": "يَقُولُ الرَّبُّ عَزَّ وَجَلَّ: مَنْ شَغَلَهُ الْقُرْآنُ عَنْ ذِكْرِي وَمَسْأَلَتِي أَعْطَيْتُهُ أَفْضَلَ مَا أُعْطِي السَّائِلِينَ، وَفَضْلُ كَلاَمِ اللهِ عَلَى سَائِرِ الكَلاَمِ كَفَضْلِ اللهِ عَلَى خَلْقِهِ",
+      "translation": "Allah berfirman: Barang siapa yang disibukkan dengan al-Qur'an daripada dzikir dan berdoa kepadaKu maka Aku akan memberikan hal terbaik yang Aku berikan kepada orang-orang yang berdoa kepadaKu.",
+      "source": "HR. Al-Tirmidzi"
+    },
+    {
+      "id": 7,
+      "category": "Keutamaan Mengkhatamkan Al-Qur'an",
+      "arabic": "الْحَالُّ، الْمُرْتَحِلُ الَّذِي يَفْتَحُ الْقُرْآنَ وَيَخْتِمُهُ، صَاحِبُ الْقُرْآنِ يَضْرِبُ مِنْ أَوَّلِهِ إِلَى آخِرِهِ، وَمِنْ آخِرِهِ إِلَى أَوَّلِهِ، كُلَّمَا حَلَّ ارْتَحَلَ",
+      "translation": "Al-Haal al-Murtahil (Orang yang begitu sampai langsung pergi lagi) yaitu orang yang memulai bacaan al-Qur'an sampai mengkhatamkannya. Sahibnya al-Qur'an yang memulai bacaan al-Qur'an dari awal hingga akhir, dan dari akhir hingga awalnya. Setiap ia sampai (khatam), maka ia segera berangkat kembali (langsung memulai lagi dari awal).",
+      "source": "HR. Al-Hakim, Al-Tirmidzi dan Al-Thabrani"
+    },
+    {
+      "id": 8,
+      "category": "Keutamaan Mengkhatamkan Al-Qur'an",
+      "arabic": "إِذا خَتَمَ العَبْدُ القُرآن صَلَّى عليهِ عِنْدَ خَتْمِهِ ستُّونَ ألْفَ مَلَكٍ",
+      "translation": "Jika seseorang mengkhatamkan al-Qur'an maka 60.000 malaikat mendoakannya ketika khataman",
+      "source": "HR. Al-Dailami"
+    },
+    {
+      "id": 9,
+      "category": "Kedudukan Ahli Al-Qur'an",
+      "arabic": "إِنَّ لِلَّهَ عَزَّ وَجَلَّ أَهْلِينَ مِنَ النَّاسِ قِيلَ: يَا رَسُولَ اللَّهِ، وَمَنْ هُمْ؟ قَالَ: أَهْلُ الْقُرْآنِ، هُمْ أَهْلُ اللَّهِ وَخَاصَّتُهُ",
+      "translation": "Sesungguhnya Allah memiliki keluarga di antara kalangan manusia. Ditanyakan: Siapa mereka wahai Rasulallah? Rasulullah menjawab: Para ahli al-Qur'an adalah keluarga Allah dan orang-orang pilihanNya",
+      "source": "HR. Abu Dawud, Ibnu Majah dan Ahmad"
+    },
+    {
+      "id": 10,
+      "category": "Kedudukan Ahli Al-Qur'an",
+      "arabic": "مَنْ قَرَأَ القُرْآنَ فَكَأَنَّمَا اسْتُدْرِجَتِ النُّبُوَّةُ بَيْنَ جَنْبَيْهِ، غَيْرَ أَنَّهُ لاَ يُوحَى إِلَيْهِ. ومَنْ قَرَأَ القُرْآنَ فَرَأى أَنَّ أَحَدًا أُعْطِيَ أَفْضَلَ مِمَّا أُعْطِيَ، فَقَدْ عَظَّمَ مَا صَغَّرَ اللهُ، وصَغَّرَ مَا عظَّمَ اللهُ",
+      "translation": "Barang siapa yang telah menghafalkan al-Qur'an maka ia telah menerima derajat kenabian di antara kedua pundaknya, hanya saja tidak diwahyukan kepadanya. Barang siapa yang telah hafal al-Qur'an kemudian berfikir bahwa ada orang lain yang diberi sesuatu yang lebih utama daripada apa yang diberikan kepadanya (al-Qur'an) maka sungguh ia telah mengagungkan apa yang Allah anggap remeh dan meremehkan apa yang dinilai agung di sisi Allah.",
+      "source": "HR. Al-Thabrani dan Al-Bayhaqi"
+    },
+    {
+      "id": 11,
+      "category": "Keutamaan Membaca Al-Qur'an",
+      "arabic": "لاَ حَسَدَ إِلَّا فِي اثْنَتَيْنِ: رَجُلٌ عَلَّمَهُ اللَّهُ القُرْآنَ، فَهُوَ يَتْلُوهُ آنَاءَ اللَّيْلِ، وَآنَاءَ النَّهَارِ، فَسَمِعَهُ جَارٌ لَهُ، فَقَالَ: لَيْتَنِي أُوتِيتُ مِثْلَ مَا أُوتِيَ فُلاَنٌ، فَعَمِلْتُ مِثْلَ مَا يَعْمَلُ، وَرَجُلٌ آتَاهُ اللَّهُ مَالًا فَهُوَ يُهْلِكُهُ فِي الحَقِّ، فَقَالَ رَجُلٌ: لَيْتَنِي أُوتِيتُ مِثْلَ مَا أُوتِيَ فُلاَنٌ، فَعَمِلْتُ مِثْلَ مَا يَعْمَلُ",
+      "translation": "Tidak boleh iri kecuali kepada dua orang saja yaitu: (yang pertama) orang yang Allah ajarkan kepadanya al-Qur'an lalu ia membacanya siang dan malam sampai tetangganya yang mendengar berkata: Seandainya aku bisa seperti dia pasti aku akan melakukan apa yang ia lakukan. Dan (yang kedua yaitu) orang yang Allah berikan harta dan mempergunakan hartanya itu untuk kebenaran sampai orang lain berkata Seandainya aku punya seperti apa yang dia punya pasti aku akan melakukan apa yang ia lakukan",
+      "source": "HR. Al-Bukhari"
+    },
+    {
+      "id": 12,
+      "category": "Keutamaan Membaca Al-Qur'an",
+      "arabic": "مَثَلُ المُؤْمِنِ الَّذِي يَقْرَأُ القُرْآنَ كَمَثَلِ الأُتْرُجَّةِ، رِيحُهَا طَيِّبٌ وَطَعْمُهَا طَيِّبٌ، وَمَثَلُ المُؤْمِنِ الَّذِي لاَ يَقْرَأُ القُرْآنَ كَمَثَلِ التَّمْرَةِ، لاَ رِيحَ لَهَا وَطَعْمُهَا حُلْوٌ، وَمَثَلُ المُنَافِقِ الَّذِي يَقْرَأُ القُرْآنَ مَثَلُ الرَّيْحَانَةِ، رِيحُهَا طَيِّبٌ وَطَعْمُهَا مُرٌّ، وَمَثَلُ المُنَافِقِ الَّذِي لاَ يَقْرَأُ القُرْآنَ كَمَثَلِ الحَنْظَلَةِ، لَيْسَ لَهَا رِيحٌ وَطَعْمُهَا مُرٌّ",
+      "translation": "Perumpamaan orang mu'min yang membaca al-Qur'an bagaikan buah Utrujah, rasa buahnya enak dan baunya wangi. Dan perumpamaan orang mu'min yang tidak membaca al-Qur'an bagaikan buah Kurma, rasanya enak namun tidak berbau. Sedangkan perumpamaan orang munafik yang membaca al-Qur'an, bagaikan buah Raihanah, baunya enak namun rasanya pahit. Dan perumpaman orang munafik yang tidak membaca al-Qur'an, bagaikan buah Hanzalah, rasanya pahit tetapi tidak berbau.",
+      "source": "HR. Muttafaq Alaih"
+    },
+    {
+      "id": 13,
+      "category": "Keberkahan Al-Qur'an",
+      "arabic": "إِنَّ الْبَيْتَ الَّذِي يُقْرَأُ فِيهِ الْقُرْآنُ يَكْثُرُ خَيْرُهُ وَالْبَيْتُ الَّذِي لا يُقْرَأُ فِيهِ الْقُرْآنُ يَقِلُّ خَيْرُهُ",
+      "translation": "Sesungguhnya rumah yang didalamnya dibacakan al-Qur'an maka akan banyak keberkahannya, sedangkan rumah yang didalamnya tidak dibacakan al-Qur'an maka sedikit kebaikannya.",
+      "source": "HR. Al-Bazzar"
+    },
+    {
+      "id": 14,
+      "category": "Keutamaan Membaca Al-Qur'an",
+      "arabic": "أَيُحِبُّ أَحَدُكُمْ إِذَا رَجَعَ إِلَى أَهْلِهِ أَنْ يَجِدَ فِيهِ ثَلَاثَ خَلِفَاتٍ عِظَامٍ سِمَانٍ؟ قُلْنَا: نَعَمْ، قَالَ: فَثَلَاثُ آيَاتٍ يَقْرَأُ بِهِنَّ أَحَدُكُمْ فِي صَلَاتِهِ، خَيْرٌ لَهُ مِنْ ثَلَاثِ خَلِفَاتٍ عِظَامٍ سِمَانٍ",
+      "translation": "Apakah kalian suka ketika kalian pulang ke rumah, ada tiga unta yang sedang bunting (yang tiba-tiba ada di rumah kalian)? Kami menjawab: Tentu wahai Rasulallah. Lalu Nabi pun berkata: Tiga ayat yang kalian baca dalam shalat kalian sungguh lebih baik baginya daripada tiga unta gemuk yang sedang bunting",
+      "source": "HR. Muslim, Ibn Majah dan Ahmad"
+    },
+    {
+      "id": 15,
+      "category": "Keutamaan Majelis Al-Qur'an",
+      "arabic": "وَمَا اجْتَمَعَ قَوْمٌ فِي بَيْتٍ مِنْ بُيُوتِ اللهِ، يَتْلُونَ كِتَابَ اللهِ، وَيَتَدَارَسُونَهُ بَيْنَهُمْ، إِلَّا نَزَلَتْ عَلَيْهِمِ السَّكِينَةُ، وَغَشِيَتْهُمُ الرَّحْمَةُ وَحَفَّتْهُمُ الْمَلَائِكَةُ، وَذَكَرَهُمُ اللهُ فِيمَنْ عِنْدَهُ، وَمَنْ بَطَّأَ بِهِ عَمَلُهُ، لَمْ يُسْرِعْ بِهِ نَسَبُهُ",
+      "translation": "Tidaklah suatu kaum berkumpul di satu rumah Allah seraya membaca kitab Allah dan mempelajarinya, kecuali ketenangan pasti turun kepada mereka, rahmat menyelimuti mereka, para malaikat mengelilingi mereka dan Allah memuji mereka di hadapan makhluk yang ada didekatnya. Barangsiapa yang kurang amalannya, maka nasabnya tidak mengangkatnya.",
+      "source": "HR. Muslim, Abu Dawud dan Ibn Majah"
+    },
+    {
+      "id": 16,
+      "category": "Keutamaan Membaca Al-Qur'an",
+      "arabic": "مَنْ قَرَأَ فِي لَيْلَةٍ عَشْرَ آيَاتٍ، لَمْ يُكْتَبْ مِنَ الْغَافِلِينَ، وَمَنْ قَرَأَ فِي لَيْلَةٍ بِمِائَةِ آيَةٍ، كُتِبَ مِنَ الْقَانِتِينَ، وَمَنْ قَرَأَ بِمِائَتَيْ آيَةٍ، كُتِبَ مِنَ الْفَائِزِينَ",
+      "translation": "Barang siapa yang membaca sepuluh ayat dalam satu malam maka ia tidak tercatat sebagai orang yang lalai (di hari tersebut). Barang siapa yang membaca serratus ayat dalam satu malam maka ia tercatat sebagai orang yang taat. Barang siapa yang membaca dua ratus ayat dalam satu malam maka ia tercatat sebagai orang yang beruntung",
+      "source": "HR. Al-Darimi"
+    },
+    {
+      "id": 17,
+      "category": "Manfaat Al-Qur'an",
+      "arabic": "إِنَّ هَذِهِ الْقُلُوبَ تَصْدَأُ، كَمَا يَصْدَأُ الْحَدِيدُ إِذَا أَصَابَهُ الْمَاءُ قِيلَ: يَا رَسُولَ اللهِ، وَمَا جِلَاؤُهَا؟ قَالَ: كَثْرَةُ ذِكْرِ الْمَوْتِ وَتِلَاوَةُ الْقُرْآنِ",
+      "translation": "Sesungguhnya hati ini bisa berkarat sebagaimana besi berkarat. Ditanyakan (kepada Rasulullah): Lalu apa pembersih karatnya wahai Rasulullah? Beliau menjawab: Memperbanyak mengingat kematian dan membaca al-Qur'an",
+      "source": "HR. Al-Bayhaqi"
+    },
+    {
+      "id": 18,
+      "category": "Kedudukan Ahli Al-Qur'an",
+      "arabic": "إِنَّ اللهَ يَرْفَعُ بِهَذَا الْكِتَابِ أَقْوَامًا، وَيَضَعُ بِهِ آخَرِينَ",
+      "translation": "Sesungguhnya Allah mengangkat derajat sebagian kaum dengan kitab ini (al-Qur'an) dan menghinakan sebagian yang lain",
+      "source": "HR. Muslim dan Ibn Majah"
+    },
+    {
+      "id": 19,
+      "category": "Kedudukan Ahli Al-Qur'an",
+      "arabic": "يَؤُمُّ الْقَوْمَ أَقْرَؤُهُمْ لِكِتَابِ اللهِ",
+      "translation": "Yang menjadi imam shalat dari suatu kaum adalah orang yang paling bagus (bacaan/hafalan) al-Qur'annya",
+      "source": "HR. Muslim"
+    },
+    {
+      "id": 20,
+      "category": "Keutamaan Penghafal Al-Qur'an",
+      "arabic": "إِنَّ مِنْ إِجْلَالِ اللَّهِ إِكْرَامَ ذِي الشَّيْبَةِ الْمُسْلِمِ، وَحَامِلِ الْقُرْآنِ غَيْرِ الْغَالِي فِيهِ وَالْجَافِي عَنْهُ، وَإِكْرَامَ ذِي السُّلْطَانِ الْمُقْسِطِ",
+      "translation": "Sesungguhnya termasuk cara mengagungkan Allah adalah dengan memuliakan orang muslim yang sudah tua, memuliakan penghafal al-Qur'an yang tidak bersikap berlebihan dan tidak pula jauh darinya (al-Qur'an) serta memuliakan pemimpin yang adil",
+      "source": "HR. Abu Dawud, Ibn Abi Shaibah dan Al-Bukhari dalam Al-Adab Al-Mufrad"
+    },
+    {
+      "id": 21,
+      "category": "Keutamaan Penghafal Al-Qur'an",
+      "arabic": "مَنْ قَرَأَ الْقُرْآنَ، أَوْ قَالَ: مَنْ جَمَعَ الْقُرْآنَ، كَانَتْ لَهُ عِنْدَ اللَّهِ دَعْوَةٌ مُسْتَجَابَةٌ، إِنْ شَاءَ عَجَّلَهَا لَهُ فِي الدُّنْيَا، وَإِنْ شَاءَ أَخَّرَهَا لَهُ فِي الْآخِرَةِ",
+      "translation": "Barang siapa yang telah menghafalkan al-Qur'an maka ia memiliki doa yang dikabulkan di sisi Allah. Jika Allah berkehendak, Ia akan mempercepat pengabulan itu di dunia. Jika Allah berkehendak, bisa juga Allah menunda pengabulan itu di akhirat.",
+      "source": "HR. Al-Thabrani"
+    },
+    {
+      "id": 22,
+      "category": "Keutamaan Penghafal Al-Qur'an",
+      "arabic": "حَمَلَةُ القُرْآنِ أوْلِياءُ الله فَمَنْ عادَاهُمْ عادَى الله وَمَنْ والاهُمْ فَقَدْ والَى الله",
+      "translation": "Para penghafal al-Qur'an adalah para kekasih Allah. Barang siapa yang memusuhi mereka, maka Allah akan memusuhinya dan barang siapa mengasihi mereka Allah pun akan mengasihinya",
+      "source": "HR. Ibn Al-Najjar"
+    },
+    {
+      "id": 23,
+      "category": "Keutamaan Menghafal di Usia Muda",
+      "arabic": "مَنْ قَرَأَ الْقُرْآنَ قَبْلَ أَنْ يَحْتَلِمَ فَقَدْ أُوتِيَ الْحُكْمَ صَبِيًّا",
+      "translation": "Barang siapa yang menghafal al-Qur'an sejak sebelum ia mencapai baligh, maka ia telah dianugerahi hikmah sejak kecil.",
+      "source": "HR. Al-Bayhaqi"
+    },
+    {
+      "id": 24,
+      "category": "Syafa'at Al-Qur'an di Akhirat",
+      "arabic": "اقْرَءُوا الْقُرْآنَ فَإِنَّهُ يَأْتِي يَوْمَ الْقِيَامَةِ شَفِيعًا لِأَصْحَابِهِ",
+      "translation": "Bacalah al-Qur'an karena sesungguhnya al-Qur'an akan datang sebagai penolong bagi para sahabatnya kelak di Hari Kiamat.",
+      "source": "HR. Muslim, Ahmad dan Al-Thabrani"
+    },
+    {
+      "id": 25,
+      "category": "Syafa'at Al-Qur'an di Akhirat",
+      "arabic": "أَيُّهُمْ أَكْثَرُ أَخْذًا لِلْقُرْآنِ، فَإِذَا أُشِيرَ لَهُ إِلَى أَحَدِهِمَا قَدَّمَهُ فِي اللَّحْدِ، وَقَالَ: أَنَا شَهِيدٌ عَلَى هَؤُلاَءِ يَوْمَ القِيَامَةِ",
+      "translation": "Siapa yang paling banyak hafalan al-Qur'annya di antara mereka? Jika ditunjuk (diberitahu) yang paling banyak hafalannya di antara keduanya maka Nabi mendahulukannya untuk dimasukkan ke liang dan berkata: Aku menjadi saksi mereka di hari kiamat nanti",
+      "source": "HR. Al-Bukhari dan Ibn Majah"
+    },
+    {
+      "id": 26,
+      "category": "Syafa'at Al-Qur'an di Akhirat",
+      "arabic": "مَنْ قَرَأَ الْقُرْآنَ، ثُمَّ مَاتَ قَبْلَ أَنْ يَسْتَظْهِرَهُ، أَتَاهُ مَلَكٌ فَعَلَّمَهُ فِي قَبْرِهِ، فَيَلْقَى اللَّهَ وَقَدِ اسْتَظْهَرَهُ",
+      "translation": "Barang siapa yang (senantiasa) membaca/menghafal al-Qur'an namun ia meninggal sebelum bisa menyelesaikan hafalan al-Qur'annya maka di kuburnya, ia akan didatangi oleh Malaikat yang mengajarkannya hafalan al-Qur'an sehingga saat ia sowan (menghadap) Allah, ia sudah dalam keadaan hafal al-Qur'an.",
+      "source": "HR. Ibn Shahin"
+    },
+    {
+      "id": 27,
+      "category": "Syafa'at Al-Qur'an di Akhirat",
+      "arabic": "ثَلَاثَةٌ عَلَى كَثِيبٍ مِنْ مِسْكٍ أَسْوَدَ يَوْمَ الْقِيَامَةِ لَا يَهُولُهُمُ الْفَزَعُ وَلَا يَنَالُهُمُ الْحِسَابُ، رَجُلٌ قَرَأَ الْقُرْآنَ ابْتِغَاءَ وَجْهِ اللهِ وَأَمَّ بِهِ قَوْمًا وَهُمْ بِهِ رَاضُونَ، وَرَجُلٌ أَذَّنَ فِي مَسْجِدٍ دَعَا إِلَى اللهِ ابْتِغَاءَ وَجْهِ اللهِ وَرَجُلٌ ابْتُلِيَ بِالرِّقِّ فِي الدُّنْيَا، فَلَمْ يَشْغَلْهُ ذَلِكَ عَنْ طَلَبِ الْآخِرَةِ",
+      "translation": "Tiga golongan kelak akan berada di atas bukit kesturi hitam pada hari kiamat. Mereka tidak akan merasa takut dan tidak pula dihisab. (Pertama,) orang yang menghafal Al-Qur'an karena mencari ridha Allah serta ia mengimami/memimpin suatu kaum dengan al-Qur'an itu sehingga mereka ridha dengannya. (Kedua,) seorang laki-laki yang mengumandangkan adzan di masjid, menyeru kepada Allah karena mencari ridha Allah, dan (ketiga) seorang laki-laki yang diuji dengan perbudakan di dunia namun tidak mengalihkan perhatiannya dari mencari kehidupan setelah kematian.",
+      "source": "HR. Al-Bayhaqi"
+    },
+    {
+      "id": 28,
+      "category": "Syafa'at Al-Qur'an di Akhirat",
+      "arabic": "وَإِنَّ الْقُرْآنَ يَلْقَى صَاحِبَهُ يَوْمَ الْقِيَامَةِ حِينَ يَنْشَقُّ عَنْهُ قَبْرُهُ كَالرَّجُلِ الشَّاحِبِ. فَيَقُولُ لَهُ: هَلْ تَعْرِفُنِي؟ فَيَقُولُ: مَا أَعْرِفُكَ فَيَقُولُ: أَنَا صَاحِبُكَ الْقُرْآنُ الَّذِي أَظْمَأْتُكَ فِي الْهَوَاجِرِ وَأَسْهَرْتُ لَيْلَكَ",
+      "translation": "Sesungguhnya al-Qur'an akan menjumpai sahibnya saat kubur dibelah di hari kiamat, dengan menyerupai seorang yang rupawan, lantas ia (al-Qur'an) berkata: Apakah kamu mengenaliku? Sahibnya pun menjawab: Aku tidak mengenalimu. Al-Qur'an pun menimpali: Aku adalah sahibmu yang dulu membuatmu lapar di siang harimu dan membuatmu terjaga di malam harimu.",
+      "source": "HR. Ahmad"
+    },
+    {
+      "id": 29,
+      "category": "Perlindungan Al-Qur'an",
+      "arabic": "اقْرَءُوا الْقُرْآنَ وَلَا تَغُرَّنَّكُمْ هَذِهِ الْمَصَاحِفُ الْمُعَلَّقَةُ فَإِنَّ اللَّهَ لَا يُعَذِّبُ قَلْبًا وَعَى الْقُرْآنَ",
+      "translation": "Hafalkanlah al-Qur'an dan janganlah kamu terlena dengan mushaf-mushaf yang tergantung ini karena sesungguhnya Allah tidak akan menyiksa hati yang menyimpan al-Qur'an.",
+      "source": "HR. Al-Darimi dan Al-Bukhari dalam Kitab Khalq Af'al Al-Ibad"
+    },
+    {
+      "id": 30,
+      "category": "Syafa'at Al-Qur'an di Akhirat",
+      "arabic": "مَنْ قَرَأَ الْقُرْآنَ فَقَامَ بِهِ آنَاءَ اللَّيْلِ وَالنَّهَارِ، وَيُحِلُّ حَلَالَهُ وَيُحَرِّمُ حَرَامَهُ خَلَطَهُ اللهُ بِلَحْمِهِ وَدَمِهِ، وَجَعَلَهُ رَفِيقَ السَّفَرَةِ الْكِرَامِ الْبَرَرَةِ",
+      "translation": "Barang siapa yang membaca al-Qur'an kemudian mengamalkannya/membacanya dalam shalat-shalat malam dan siang, menghalalkan apa yang dihalalkan al-Qur'an, mengharamkan apa yang diharamkannya maka Allah akan membuat al-Qur'an mendarahdaging dengan orang itu, menjadikan orang itu setara/sekawan dengan para malaikat penyampai wahyu yang mulia nan baik.",
+      "source": "HR. Al-Bayhaqi"
+    },
+    {
+      "id": 31,
+      "category": "Syafa'at Al-Qur'an untuk Keluarga",
+      "arabic": "مَنْ قَرَأَ الْقُرْآنَ وَعَمِلَ بِمَا فِيهِ وَمَاتَ فِي الْجَمَاعَةِ بَعَثَهُ اللهُ يَوْمَ الْقِيَامَةِ مَعَ السَّفَرَةِ وَالْحُكَّامِ",
+      "translation": "Barang siapa yang menghafal al-Qur'an serta mengamalkannya, kemudian ia mati dalam barisan jamaah (dalam keadaan Islam), maka Allah akan membangkitkannya di hari kiamat bersama dengan para malaikat penyampai wahyu serta para ahli hukum.",
+      "source": "HR. Al-Thabrani dan Al-Bayhaqi"
+    },
+    {
+      "id": 32,
+      "category": "Syafa'at Al-Qur'an untuk Keluarga",
+      "arabic": "مَنْ قَرَأَ الْقُرْآنَ وَحَفِظَهُ، أَدْخَلَهُ اللَّهُ الْجَنَّةَ، وَشَفَّعَهُ فِي عَشَرَةٍ مِنْ أَهْلِ بَيْتِهِ، كُلُّهُمْ قَدِ اسْتوْجَبَ النَّارَ",
+      "translation": "Barang siapa yang menghafalkan al-Qur'an dan senantiasa menjaganya, maka Allah akan memasukkannya ke surga dan memberikan ia kesempatan untuk bisa menolong sepuluh orang keluarganya yang seharusnya dipastikan masuk neraka.",
+      "source": "HR. Al-Tirmidzi, Ibn Majah dan Ahmad"
+    },
+    {
+      "id": 33,
+      "category": "Derajat di Surga",
+      "arabic": "يُقَالُ لِصَاحِبِ الْقُرْآنِ: اقْرَأْ، وَارْتَقِ، وَرَتِّلْ كَمَا كُنْتَ تُرَتِّلُ فِي الدُّنْيَا، فَإِنَّ مَنْزِلَكَ عِنْدَ آخِرِ آيَةٍ تَقْرَؤُهَا",
+      "translation": "Akan dikatakan kepada Sahibnya al-Qur'an: Bacalah dan Naiklah. Tartilkanlah apa yang dulu kamu tartilkan di dunia sesungguhnya tempatmu (di Surga) sesuai dengan (jumlah) ayat terakhir yang (bisa) kamu baca.",
+      "source": "HR. Abu Dawud dan Al-Tirmidzi"
+    },
+    {
+      "id": 34,
+      "category": "Derajat di Surga",
+      "arabic": "مَنْ قَرَأَ عَشْرَ آيَاتٍ فِي لَيْلَةٍ، كُتِبَ لَهُ قِنْطَارٌ، وَالْقِنْطَارُ خَيْرٌ مِنَ الدُّنْيَا وَمَا فِيهَا، فَإِذَا كَانَ يَوْمُ الْقِيَامَةِ، يَقُولُ رَبُّكَ عَزَّ وَجَلَّ: اقْرَأْ وَارْقَ لِكُلِّ آيَةٍ دَرَجَةً",
+      "translation": "Barang siapa yang membaca sepuluh ayat dalam satu malam, maka dicatat baginya satu qinthar pahala yang lebih baik daripada dunia dan seisinya. Pada hari kiamat, Allah akan berkata (kepadanya): Bacalah dan naiklah satu derajat surga setiap satu ayat.",
+      "source": "HR. Al-Thabrani"
+    },
+    {
+      "id": 35,
+      "category": "Peringatan",
+      "arabic": "وَالْقُرْآنُ حُجَّةٌ لَكَ أَوْ عَلَيْكَ، كُلُّ النَّاسِ يَغْدُو فَبَايِعٌ نَفْسَهُ فَمُعْتِقُهَا أَوْ مُوبِقُهَا",
+      "translation": "Al-Qur'an bisa menjadi pembela sekaligus bisa menjadi penuntut bagimu (di hari kiamat). Setiap manusia akan pergi, ada yang menjual (mengorbankan) dirinya kemudian memerdekakannya ada juga yang menjatuhkan dirinya dalam kebinasaan.",
+      "source": "HR. Muslim"
+    },
+    {
+      "id": 36,
+      "category": "Peringatan",
+      "arabic": "عُرِضَتْ عَلَيَّ أُجُورُ أُمَّتِي حَتَّى الْقَذَاةُ يُخْرِجُهَا الرَّجُلُ مِنَ الْمَسْجِدِ، وَعُرِضَتْ عَلَيَّ ذُنُوبُ أُمَّتِي، فَلَمْ أَرَ ذَنْبًا أَعْظَمَ مِنْ سُورَةٍ مِنَ الْقُرْآنِ أَوْ آيَةٍ أُوتِيَهَا رَجُلٌ ثُمَّ نَسِيَهَا",
+      "translation": "Pahala-pahala umatku diperlihatkan semua kepadaku bahkan sekecil tindakan ringan seseorang mengeluarkan duri dari masjid. Pun demikian dosa-dosa umatku juga diperlihatkan kepadaku. Aku tidak melihat dosa yang lebih besar daripada seseorang yang telah dianugerahkan Allah untuk bisa menghafal suatu surat atau ayat al-Qur'an lantas ia malah melalaikan/melupakannya.",
+      "source": "HR. Abu Dawud dan Al-Tirmidzi"
+    },
+    {
+      "id": 37,
+      "category": "Peringatan",
+      "arabic": "إِنَّ أَوَّلَ النَّاسِ يُقْضَى يَوْمَ الْقِيَامَةِ عَلَيْهِ رَجُلٌ اسْتُشْهِدَ... وَرَجُلٌ تَعَلَّمَ الْعِلْمَ، وَعَلَّمَهُ وَقَرَأَ الْقُرْآنَ... قَالَ: كَذَبْتَ، وَلَكِنَّكَ تَعَلَّمْتَ الْعِلْمَ لِيُقَالَ: عَالِمٌ، وَقَرَأْتَ الْقُرْآنَ لِيُقَالَ: هُوَ قَارِئٌ",
+      "translation": "Sesungguhnya manusia yang pertama kali dihisab pada hari Kiamat ialah seseorang yang belajar Al-Qur'an dan mengajarkannya. Allah berfirman: Dusta kamu! Kamu belajar ilmu dan mengajarkannya serta membaca Al-Qur'an agar dikatakan seorang yang mahir dalam membaca atau menghafal.",
+      "source": "HR. Muslim dan Al-Nasa'i"
+    },
+    {
+      "id": 38,
+      "category": "Peringatan",
+      "arabic": "دَعْهُ فَإِنَّ لَهُ أَصْحَابًا يَحْقِرُ أَحَدُكُمْ صَلَاتَهُ مَعَ صَلَاتِهِمْ، وَصِيَامَهُ مَعَ صِيَامِهِمْ، يَقْرَءُونَ الْقُرْآنَ لَا يُجَاوِزُ تَرَاقِيَهُمْ، يَمْرُقُونَ مِنْ الدِّينِ كَمَا يَمْرُقُ السَّهْمُ مِنْ الرَّمِيَّةِ",
+      "translation": "Biarkanlah ia, sesungguhnya ia memiliki sahabat-sahabat (generasi-generasi) dimana shalat kalian tidak ada apa-apanya jika dibanding shalat mereka, pun puasa kalian juga tidak ada apa-apanya dibanding dengan puasa mereka. Mereka menghafal Al-Qur'an namun tidak sampai melewati tenggorokan mereka. Mereka keluar dari Islam sebagaimana meluncurnya anak panah dari busurnya.",
+      "source": "HR. Al-Bukhari"
+    },
+    {
+      "id": 39,
+      "category": "Peringatan",
+      "arabic": "إِنَّ أَكْثَرَ مُنَافِقِي أُمَّتِي قُرَّاؤُهَا",
+      "translation": "Sesungguhnya kebanyakan orang munafik dari kalangan umatku justru adalah para penghafal al-Qur'annya.",
+      "source": "HR. Ahmad dan Al-Thabrani"
+    },
+    {
+      "id": 40,
+      "category": "Keagungan Al-Qur'an",
+      "arabic": "إِنَّكُمْ لَا تَرْجِعُونَ إِلَى اللَّهِ بِشَيْءٍ أَفْضَلَ مِمَّا خَرَجَ مِنْهُ",
+      "translation": "Sesungguhnya tidak ada hal yang lebih baik saat kamu kembali (sowan/menghadap) kepada tuhanmu selain sesuatu yang memang berasal dariNya (al-Qur'an).",
+      "source": "HR. Al-Hakim"
+    }
+  ]
+}
