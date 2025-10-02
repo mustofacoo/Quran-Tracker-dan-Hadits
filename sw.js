@@ -65,26 +65,35 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // NETWORK FIRST untuk HTML (ini yang penting agar data tidak hilang!)
+  // CACHE FIRST untuk HTML (agar data tidak hilang saat refresh)
   if (request.mode === 'navigate' || 
       (request.method === 'GET' && request.headers.get('accept') && 
        request.headers.get('accept').includes('text/html'))) {
     event.respondWith(
-      fetch(request)
-        .then((response) => {
-          // Cache the new version
-          const responseToCache = response.clone();
-          caches.open(CACHE_NAME).then(cache => {
-            cache.put(request, responseToCache);
-          });
-          return response;
-        })
-        .catch(() => {
-          // Fallback to cache only if network fails (offline mode)
-          return caches.match(request);
+      caches.match(request)
+        .then((cachedResponse) => {
+          // Fetch in background untuk update cache
+          const fetchPromise = fetch(request)
+            .then((networkResponse) => {
+              // Clone dan update cache
+              if (networkResponse && networkResponse.status === 200) {
+                const responseToCache = networkResponse.clone();
+                caches.open(CACHE_NAME).then(cache => {
+                  cache.put(request, responseToCache);
+                });
+              }
+              return networkResponse;
+            })
+            .catch((error) => {
+              console.log('[SW] Network fetch failed, using cache:', error);
+              return cachedResponse;
+            });
+          
+          // Return cache immediately, atau fetch jika cache tidak ada
+          return cachedResponse || fetchPromise;
         })
     );
-    return;
+    return; // PENTING: stop execution di sini
   }
 
   // CACHE FIRST untuk assets lainnya (CSS, JS, images, fonts)
