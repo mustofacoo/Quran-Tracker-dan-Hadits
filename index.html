@@ -74,6 +74,7 @@
             margin: 0 auto;
             padding: var(--spacing-lg);
         }
+        
 
         /* Hero Section */
         .hero {
@@ -640,11 +641,12 @@
             width: 18px;
             height: 18px;
         }
+       [x-cloak] { display: none !important; }
     </style>
 </head>
 <body>
 
-<div x-data="quranTracker" class="container">
+<div x-data="quranTracker" x-cloak class="container">
     <!-- Hero Section -->
     <div class="hero">
         <div class="hero-content">
@@ -1003,42 +1005,44 @@ class QuranTrackerDB {
 
 document.addEventListener('alpine:init', () => {
     Alpine.data('quranTracker', () => ({
-        // STATE
-        activeTab: 'main',
-        tilawahProgress: [],
-        khatamHistory: [],
-        completedHadits: [],
-        selectedPeriod: '',
-        db: new QuranTrackerDB(),
+    // STATE
+    activeTab: 'main',
+    tilawahProgress: [],
+    khatamHistory: [],
+    completedHadits: [],
+    selectedPeriod: '',
+    db: new QuranTrackerDB(),
+    
+    haditsData: [],
+    selectedCategory: 'all',
+    selectedStatus: 'all',
+    currentPage: 1,
+    haditsPerPage: 5,
+
+    async init() {
+        // Load hadits first (critical for UI)
+        await this.loadHaditsData();
         
-        // Hadits state
-        haditsData: [],
-        selectedCategory: 'all',
-        selectedStatus: 'all',
-        currentPage: 1,
-        haditsPerPage: 5,
+        try {
+            await this.db.init();
+            await this.loadData();
+        } catch (error) {
+            console.error('Error initializing database:', error);
+            this.loadFromLocalStorage();
+        }
 
-        // INIT: Load data from IndexedDB and external JSON
-        async init() {
-            // Load hadits from external JSON
-            await this.loadHaditsData();
-            
-            try {
-                await this.db.init();
-                await this.loadData();
-            } catch (error) {
-                console.error('Error initializing database:', error);
-                this.loadFromLocalStorage();
-            }
+        // Set default period
+        const today = new Date();
+        this.selectedPeriod = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
+        
+        // PENTING: Panggil $nextTick untuk memastikan DOM ready
+        await this.$nextTick();
+        
+        // Setup watchers SETELAH data dimuat
+        this.$watch('tilawahProgress', () => this.debouncedSave('tilawahProgress'));
+        this.$watch('khatamHistory', () => this.debouncedSave('khatamHistory'));
+        this.$watch('completedHadits', () => this.debouncedSave('completedHadits'));
 
-            // Set default filter to current month
-            const today = new Date();
-            this.selectedPeriod = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
-            
-            // Optimized watchers with debouncing
-            this.$watch('tilawahProgress', () => this.debouncedSave('tilawahProgress'));
-            this.$watch('khatamHistory', () => this.debouncedSave('khatamHistory'));
-            this.$watch('completedHadits', () => this.debouncedSave('completedHadits'));
         },
 
         // Load hadits from external JSON
