@@ -20,6 +20,7 @@ class PWAManager {
     
     // Setup update handler
     this.setupUpdateHandler();
+    this.requestPersistentStorage();
   }
 
   checkStandaloneMode() {
@@ -340,6 +341,43 @@ class PWAManager {
       };
     }
   }
+
+  // Request persistent storage
+async requestPersistentStorage() {
+  try {
+    if (navigator.storage && navigator.storage.persist) {
+      const isPersisted = await navigator.storage.persisted();
+      
+      if (!isPersisted) {
+        const granted = await navigator.storage.persist();
+        
+        if (granted) {
+          console.log('[PWA] Persistent storage granted');
+        } else {
+          console.log('[PWA] Persistent storage denied');
+          
+          // Show notification to install PWA
+          setTimeout(() => {
+            this.showNotification(
+              'Install aplikasi untuk mencegah data hilang saat refresh',
+              'info'
+            );
+          }, 2000);
+        }
+      } else {
+        console.log('[PWA] Storage already persistent');
+      }
+      
+      // Log storage estimate
+      if (navigator.storage.estimate) {
+        const estimate = await navigator.storage.estimate();
+        console.log(`[PWA] Storage usage: ${(estimate.usage / 1024 / 1024).toFixed(2)} MB / ${(estimate.quota / 1024 / 1024).toFixed(2)} MB`);
+      }
+    }
+  } catch (error) {
+    console.error('[PWA] Error requesting persistent storage:', error);
+  }
+}
 
   // Clear all caches (for debugging)
   async clearAllCaches() {
