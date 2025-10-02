@@ -866,189 +866,39 @@
 </div>
 
 <script>
-// Optimized IndexedDB utility functions
-const DB_NAME = 'QuranTrackerDB';
-const DB_VERSION = 2;
-
-class QuranTrackerDB {
-    constructor() {
-        this.db = null;
-        this.cache = new Map();
-        this.cacheExpiry = 5 * 60 * 1000; // 5 minutes
-    }
-
-    async init() {
-        return new Promise((resolve, reject) => {
-            const request = indexedDB.open(DB_NAME, DB_VERSION);
-            
-            request.onerror = () => reject(request.error);
-            request.onsuccess = () => {
-                this.db = request.result;
-                resolve(this.db);
-            };
-            
-            request.onupgradeneeded = (event) => {
-                const db = event.target.result;
-                
-                // Create/update object stores
-                ['tilawahProgress', 'khatamHistory', 'completedHadits'].forEach(storeName => {
-                    if (db.objectStoreNames.contains(storeName)) {
-                        db.deleteObjectStore(storeName);
-                    }
-                    
-                    const store = db.createObjectStore(storeName, { keyPath: 'id', autoIncrement: true });
-                    
-                    if (storeName === 'tilawahProgress') {
-                        store.createIndex('juz', 'juz', { unique: false });
-                        store.createIndex('date', 'date', { unique: false });
-                    } else if (storeName === 'khatamHistory') {
-                        store.createIndex('date', 'date', { unique: false });
-                    } else if (storeName === 'completedHadits') {
-                        store.createIndex('haditsId', 'haditsId', { unique: true });
-                    }
-                });
-            };
-        });
-    }
-
-    // Optimized batch operations
-    async saveData(storeName, data) {
-        const cacheKey = `${storeName}_${Date.now()}`;
-        
-        try {
-            const transaction = this.db.transaction([storeName], 'readwrite');
-            const store = transaction.objectStore(storeName);
-            
-            // Clear existing data
-            await this.promisifyRequest(store.clear());
-            
-            // Batch insert
-            const promises = data.map(item => this.promisifyRequest(store.add(item)));
-            await Promise.all(promises);
-            
-            // Update cache
-            this.cache.set(storeName, { data, timestamp: Date.now() });
-            
-            return true;
-        } catch (error) {
-            console.error(`Error saving ${storeName}:`, error);
-            throw error;
-        }
-    }
-
-    async loadData(storeName) {
-        // Check cache first
-        const cached = this.cache.get(storeName);
-        if (cached && (Date.now() - cached.timestamp) < this.cacheExpiry) {
-            return cached.data;
-        }
-
-        try {
-            const transaction = this.db.transaction([storeName], 'readonly');
-            const store = transaction.objectStore(storeName);
-            const data = await this.promisifyRequest(store.getAll());
-            
-            // Update cache
-            this.cache.set(storeName, { data, timestamp: Date.now() });
-            
-            return data;
-        } catch (error) {
-            console.error(`Error loading ${storeName}:`, error);
-            throw error;
-        }
-    }
-
-    // Single item operations for better performance
-    async updateItem(storeName, item) {
-        try {
-            const transaction = this.db.transaction([storeName], 'readwrite');
-            const store = transaction.objectStore(storeName);
-            await this.promisifyRequest(store.put(item));
-            
-            // Invalidate cache
-            this.cache.delete(storeName);
-            
-            return true;
-        } catch (error) {
-            console.error(`Error updating item in ${storeName}:`, error);
-            throw error;
-        }
-    }
-
-    async deleteItem(storeName, id) {
-        try {
-            const transaction = this.db.transaction([storeName], 'readwrite');
-            const store = transaction.objectStore(storeName);
-            await this.promisifyRequest(store.delete(id));
-            
-            // Invalidate cache
-            this.cache.delete(storeName);
-            
-            return true;
-        } catch (error) {
-            console.error(`Error deleting item from ${storeName}:`, error);
-            throw error;
-        }
-    }
-
-    promisifyRequest(request) {
-        return new Promise((resolve, reject) => {
-            request.onsuccess = () => resolve(request.result);
-            request.onerror = () => reject(request.error);
-        });
-    }
-
-    clearCache() {
-        this.cache.clear();
-    }
-}
 
 document.addEventListener('alpine:init', () => {
     Alpine.data('quranTracker', () => ({
-    // STATE
-    activeTab: 'main',
-    tilawahProgress: [],
-    khatamHistory: [],
-    completedHadits: [],
-    selectedPeriod: '',
-    db: new QuranTrackerDB(),
-    
-    haditsData: [],
-    selectedCategory: 'all',
-    selectedStatus: 'all',
-    currentPage: 1,
-    haditsPerPage: 5,
+        // STATE
+        activeTab: 'main',
+        tilawahProgress: [],
+        khatamHistory: [],
+        completedHadits: [],
+        selectedPeriod: '',
+        
+        // Hadits state
+        haditsData: [],
+        selectedCategory: 'all',
+        selectedStatus: 'all',
+        currentPage: 1,
+        haditsPerPage: 5,
 
-    async init() {
-        // Load hadits first (critical for UI)
-        await this.loadHaditsData();
-        
-        try {
-            await this.db.init();
-            await this.loadData();
-                if (navigator.storage && navigator.storage.persist) {
-            const isPersisted = await navigator.storage.persisted();
-            if (!isPersisted) {
-                const result = await navigator.storage.persist();
-                console.log(`Storage persistence: ${result ? 'granted' : 'denied'}`);
-            }
-        }
-    } catch (error) {
-        console.error('Error initializing database:', error);
-        this.loadFromLocalStorage();
-    }
-        // Set default period
-        const today = new Date();
-        this.selectedPeriod = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
-        
-        // PENTING: Panggil $nextTick untuk memastikan DOM ready
-        await this.$nextTick();
-        
-        // Setup watchers SETELAH data dimuat
-        this.$watch('tilawahProgress', () => this.debouncedSave('tilawahProgress'));
-        this.$watch('khatamHistory', () => this.debouncedSave('khatamHistory'));
-        this.$watch('completedHadits', () => this.debouncedSave('completedHadits'));
+        // INIT: Load data from LocalStorage
+        async init() {
+            // Load hadits from external JSON
+            await this.loadHaditsData();
+            
+            // Load data from LocalStorage
+            this.loadData();
 
+            // Set default filter to current month
+            const today = new Date();
+            this.selectedPeriod = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
+            
+            // Watchers with debouncing
+            this.$watch('tilawahProgress', () => this.debouncedSave());
+            this.$watch('khatamHistory', () => this.debouncedSave());
+            this.$watch('completedHadits', () => this.debouncedSave());
         },
 
         // Load hadits from external JSON
@@ -1059,7 +909,6 @@ document.addEventListener('alpine:init', () => {
                 this.haditsData = data.hadits;
             } catch (error) {
                 console.error('Error loading hadits data:', error);
-                // Fallback data if external JSON fails
                 this.haditsData = [
                     { id: 1, category: "Doa Harian", arabic: "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ", translation: "Ya Tuhan kami, berilah kami kebaikan di dunia dan kebaikan di akhirat, dan peliharalah kami dari azab neraka.", source: "QS. Al-Baqarah: 201" }
                 ];
@@ -1068,58 +917,42 @@ document.addEventListener('alpine:init', () => {
 
         // Debounced save function
         debouncedSave: (() => {
-            const timeouts = {};
-            return function(type) {
-                clearTimeout(timeouts[type]);
-                timeouts[type] = setTimeout(() => this.saveData(), 500);
+            let timeout;
+            return function() {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => this.saveData(), 300);
             };
         })(),
 
-        async loadData() {
+        loadData() {
             try {
-                const tilawahData = await this.db.loadData('tilawahProgress');
-                const khatamData = await this.db.loadData('khatamHistory');
-                const haditsData = await this.db.loadData('completedHadits');
+                const tilawah = localStorage.getItem('quranTracker_tilawah');
+                const khatam = localStorage.getItem('quranTracker_khatam');
+                const hadits = localStorage.getItem('quranTracker_hadits');
 
-                this.tilawahProgress = tilawahData || [];
-                this.khatamHistory = khatamData || [];
-                this.completedHadits = haditsData.map(item => item.haditsId) || [];
+                this.tilawahProgress = tilawah ? JSON.parse(tilawah) : [];
+                this.khatamHistory = khatam ? JSON.parse(khatam) : [];
+                this.completedHadits = hadits ? JSON.parse(hadits) : [];
+
+                console.log('[App] Data loaded from LocalStorage');
             } catch (error) {
-                console.error('Error loading from IndexedDB:', error);
-                this.loadFromLocalStorage();
+                console.error('[App] Error loading data:', error);
+                this.tilawahProgress = [];
+                this.khatamHistory = [];
+                this.completedHadits = [];
             }
         },
 
-async saveData() {
-  try {
-    await Promise.all([
-      this.db.saveData('tilawahProgress', this.tilawahProgress),
-      this.db.saveData('khatamHistory', this.khatamHistory),
-      this.db.saveData('completedHadits', this.completedHadits.map(id => ({ haditsId: id })))
-    ]);
-    
-    // IMPORTANT: Also backup to localStorage as failsafe
-    this.saveToLocalStorage();
-    console.log('[Data] Saved to IndexedDB and localStorage');
-    
-  } catch (error) {
-    console.error('Error saving to IndexedDB:', error);
-    // Fallback to localStorage
-    this.saveToLocalStorage();
-    console.log('[Data] Fallback: saved to localStorage only');
-  }
-},
-
-        loadFromLocalStorage() {
-            this.tilawahProgress = JSON.parse(localStorage.getItem('tilawahProgress_v3')) || [];
-            this.khatamHistory = JSON.parse(localStorage.getItem('khatamHistory_v3')) || [];
-            this.completedHadits = JSON.parse(localStorage.getItem('completedHadits_v3')) || [];
-        },
-
-        saveToLocalStorage() {
-            localStorage.setItem('tilawahProgress_v3', JSON.stringify(this.tilawahProgress));
-            localStorage.setItem('khatamHistory_v3', JSON.stringify(this.khatamHistory));
-            localStorage.setItem('completedHadits_v3', JSON.stringify(this.completedHadits));
+        saveData() {
+            try {
+                localStorage.setItem('quranTracker_tilawah', JSON.stringify(this.tilawahProgress));
+                localStorage.setItem('quranTracker_khatam', JSON.stringify(this.khatamHistory));
+                localStorage.setItem('quranTracker_hadits', JSON.stringify(this.completedHadits));
+                console.log('[App] Data saved to LocalStorage');
+            } catch (error) {
+                console.error('[App] Error saving data:', error);
+                alert('Gagal menyimpan data. Storage mungkin penuh.');
+            }
         },
 
         getCurrentMonth() {
@@ -1146,12 +979,10 @@ async saveData() {
         get filteredHadits() {
             let filtered = this.haditsData;
 
-            // Filter by category
             if (this.selectedCategory !== 'all') {
                 filtered = filtered.filter(h => h.category === this.selectedCategory);
             }
 
-            // Filter by status
             if (this.selectedStatus !== 'all') {
                 if (this.selectedStatus === 'completed') {
                     filtered = filtered.filter(h => this.isHaditsCompleted(h.id));
@@ -1181,7 +1012,6 @@ async saveData() {
             let start = Math.max(1, current - delta);
             let end = Math.min(total, current + delta);
             
-            // Adjust range if we're near the beginning or end
             if (end - start < 2 * delta) {
                 start = Math.max(1, end - 2 * delta);
                 end = Math.min(total, start + 2 * delta);
@@ -1194,7 +1024,6 @@ async saveData() {
             return pages;
         },
 
-        // Computed property for stats based on the selected period
         get statsForPeriod() {
             if (!this.selectedPeriod) return { khatamanPadaPeriode: 0 };
             
@@ -1208,7 +1037,6 @@ async saveData() {
             return { khatamanPadaPeriode };
         },
         
-        // Computed property for overall stats
         get overallStats() {
             let jedaAntarKhataman = '-';
             if (this.khatamHistory.length >= 2) {
@@ -1230,7 +1058,6 @@ async saveData() {
             return { jedaAntarKhataman, rataRataJuzPerHari };
         },
         
-        // Computed property for the chart to show the last 6 months
         get monthlyKhatamChart() {
             const months = [];
             const today = new Date();
@@ -1266,17 +1093,6 @@ async saveData() {
             return this.completedHadits.length;
         },
 
-        // Watch for filter changes to reset pagination
-        $watch: {
-            selectedCategory() {
-                this.currentPage = 1;
-            },
-            selectedStatus() {
-                this.currentPage = 1;
-            }
-        },
-
-        // METHODS
         isJuzRead(juz) {
             return this.tilawahProgress.some(p => p.juz === juz);
         },
@@ -1309,9 +1125,8 @@ async saveData() {
             }
         },
 
-        // UTILITIES
         getTodayDate() {
-            return new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+            return new Date().toISOString().slice(0, 10);
         },
         
         formatTanggal(dateString) {
