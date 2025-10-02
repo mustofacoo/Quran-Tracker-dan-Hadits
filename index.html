@@ -1080,18 +1080,25 @@ document.addEventListener('alpine:init', () => {
             }
         },
 
-        async saveData() {
-            try {
-                await Promise.all([
-                    this.db.saveData('tilawahProgress', this.tilawahProgress),
-                    this.db.saveData('khatamHistory', this.khatamHistory),
-                    this.db.saveData('completedHadits', this.completedHadits.map(id => ({ haditsId: id })))
-                ]);
-            } catch (error) {
-                console.error('Error saving to IndexedDB:', error);
-                this.saveToLocalStorage();
-            }
-        },
+async saveData() {
+  try {
+    await Promise.all([
+      this.db.saveData('tilawahProgress', this.tilawahProgress),
+      this.db.saveData('khatamHistory', this.khatamHistory),
+      this.db.saveData('completedHadits', this.completedHadits.map(id => ({ haditsId: id })))
+    ]);
+    
+    // IMPORTANT: Also backup to localStorage as failsafe
+    this.saveToLocalStorage();
+    console.log('[Data] Saved to IndexedDB and localStorage');
+    
+  } catch (error) {
+    console.error('Error saving to IndexedDB:', error);
+    // Fallback to localStorage
+    this.saveToLocalStorage();
+    console.log('[Data] Fallback: saved to localStorage only');
+  }
+},
 
         loadFromLocalStorage() {
             this.tilawahProgress = JSON.parse(localStorage.getItem('tilawahProgress_v3')) || [];
@@ -1328,6 +1335,55 @@ document.addEventListener('alpine:init', () => {
       setTimeout(() => iOSPrompt.remove(), 15000);
     });
   }
+</script>
+
+<script>
+// CRITICAL: Request Persistent Storage to prevent data loss on mobile
+async function ensurePersistentStorage() {
+  if (navigator.storage && navigator.storage.persist) {
+    const isPersisted = await navigator.storage.persisted();
+    console.log(`[Storage] Persisted: ${isPersisted}`);
+    
+    if (!isPersisted) {
+      const result = await navigator.storage.persist();
+      console.log(`[Storage] Persist request result: ${result}`);
+      
+      if (result) {
+        console.log('✓ Storage will NOT be cleared except by explicit user action');
+      } else {
+        console.log('⚠ Storage MAY be cleared by browser - Install PWA to prevent this');
+      }
+    } else {
+      console.log('✓ Storage is already persistent');
+    }
+  }
+
+  // Check storage quota
+  if (navigator.storage && navigator.storage.estimate) {
+    const estimate = await navigator.storage.estimate();
+    const usageInMB = (estimate.usage / 1024 / 1024).toFixed(2);
+    const quotaInMB = (estimate.quota / 1024 / 1024).toFixed(2);
+    const percentUsed = ((estimate.usage / estimate.quota) * 100).toFixed(2);
+    console.log(`[Storage] Using ${usageInMB} MB of ${quotaInMB} MB (${percentUsed}%)`);
+  }
+}
+
+// Call immediately on page load
+ensurePersistentStorage();
+
+// Call again after PWA installation
+window.addEventListener('appinstalled', () => {
+  console.log('[Storage] PWA installed, requesting persistent storage again');
+  ensurePersistentStorage();
+});
+
+// Call after service worker is ready
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.ready.then(() => {
+    console.log('[Storage] Service Worker ready, ensuring persistent storage');
+    ensurePersistentStorage();
+  });
+}
 </script>
 </body>
 </html>
