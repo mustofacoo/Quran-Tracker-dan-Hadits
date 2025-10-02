@@ -1026,11 +1026,17 @@ document.addEventListener('alpine:init', () => {
         try {
             await this.db.init();
             await this.loadData();
-        } catch (error) {
-            console.error('Error initializing database:', error);
-            this.loadFromLocalStorage();
+                if (navigator.storage && navigator.storage.persist) {
+            const isPersisted = await navigator.storage.persisted();
+            if (!isPersisted) {
+                const result = await navigator.storage.persist();
+                console.log(`Storage persistence: ${result ? 'granted' : 'denied'}`);
+            }
         }
-
+    } catch (error) {
+        console.error('Error initializing database:', error);
+        this.loadFromLocalStorage();
+    }
         // Set default period
         const today = new Date();
         this.selectedPeriod = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
