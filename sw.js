@@ -1,6 +1,6 @@
 // Service Worker for Quran Tracker PWA
-const CACHE_NAME = 'quran-tracker-v1.0.0';
-const RUNTIME_CACHE = 'quran-tracker-runtime-v1';
+const CACHE_NAME = 'quran-tracker-v1.0.2';
+const RUNTIME_CACHE = 'quran-tracker-runtime-v2';
 
 // Files to cache immediately on install
 const STATIC_ASSETS = [
@@ -52,12 +52,12 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch event - serve from cache, fallback to network
+// Fetch event - Strategy yang diperbaiki
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
-  // Skip cross-origin requests that aren't fonts or CDN resources
+  // Skip cross-origin requests kecuali fonts dan CDN
   if (url.origin !== location.origin && 
       !url.hostname.includes('googleapis.com') &&
       !url.hostname.includes('gstatic.com') &&
@@ -65,7 +65,29 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Strategy: Cache First, falling back to Network
+  // NETWORK FIRST untuk HTML (ini yang penting agar data tidak hilang!)
+  if (request.mode === 'navigate' || 
+      (request.method === 'GET' && request.headers.get('accept') && 
+       request.headers.get('accept').includes('text/html'))) {
+    event.respondWith(
+      fetch(request)
+        .then((response) => {
+          // Cache the new version
+          const responseToCache = response.clone();
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(request, responseToCache);
+          });
+          return response;
+        })
+        .catch(() => {
+          // Fallback to cache only if network fails (offline mode)
+          return caches.match(request);
+        })
+    );
+    return;
+  }
+
+  // CACHE FIRST untuk assets lainnya (CSS, JS, images, fonts)
   event.respondWith(
     caches.match(request)
       .then((cachedResponse) => {
@@ -82,15 +104,12 @@ self.addEventListener('fetch', (event) => {
               return networkResponse;
             }
 
-            // Clone the response
+            // Clone and cache the response
             const responseToCache = networkResponse.clone();
-
-            // Cache the fetched resource for next time
-            caches.open(RUNTIME_CACHE)
-              .then((cache) => {
-                console.log('[SW] Caching new resource:', request.url);
-                cache.put(request, responseToCache);
-              });
+            caches.open(RUNTIME_CACHE).then((cache) => {
+              console.log('[SW] Caching new resource:', request.url);
+              cache.put(request, responseToCache);
+            });
 
             return networkResponse;
           })
@@ -99,7 +118,9 @@ self.addEventListener('fetch', (event) => {
             
             // Return offline page if available
             return caches.match('/offline.html')
-              .then((offlineResponse) => offlineResponse || new Response('Offline'));
+              .then((offlineResponse) => {
+                return offlineResponse || new Response('Offline');
+              });
           });
       })
   );
@@ -158,9 +179,7 @@ self.addEventListener('notificationclick', (event) => {
 // Helper function for background sync
 async function syncQuranData() {
   try {
-    // Implement your sync logic here
     console.log('[SW] Syncing Quran data...');
-    // This could sync with a backend API if needed
     return Promise.resolve();
   } catch (error) {
     console.error('[SW] Sync failed:', error);
