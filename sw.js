@@ -1,5 +1,5 @@
 // Service Worker for Quran Tracker PWA
-const CACHE_NAME = 'quran-tracker-v1.0.2';
+const CACHE_NAME = 'quran-tracker-v1.0.4';
 const RUNTIME_CACHE = 'quran-tracker-runtime-v2';
 
 // Files to cache immediately on install
